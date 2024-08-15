@@ -1,6 +1,6 @@
 cloudprovider: vsphere
 
-cloudCredentialSecretName: vsphere
+cloudCredentialSecretName: svc-rancher
 
 # Specify nodepool options. Can add multiple node groups, specify etcd, controlplane and worker roles.
 nodepools:
@@ -15,7 +15,7 @@ nodepools:
   taints: {}
 
   # specify nodepool size
-  quantity: 1
+  quantity: 3
 
   # Pause node pool
   paused: false
@@ -60,18 +60,36 @@ nodepools:
   # machineDeploymentAnnotations: {}
 
   # specify nodepool name
-  name: vsphere-nodepool-1
+  name: pool-1
 
   # vSphere vm configuration parameters (used for guestinfo)
   # cfgparam: []
 
   # If you choose creation type clone a name of what you want to clone is required
-  # cloneFrom: ""
+  cloneFrom: "Kube_template_Ubu22wcloud-init"
 
   # Contents of cloud-config yaml file to put into the ISO user-data; Format should be:
   # cloudConfig: |
-  #   #cloud-config
-  #   <custom cloud-config>
+      #cloud-config
+      users:
+        - name: node_admin
+          shell: /bin/bash
+          groups: sudo, admin
+          sudo: ['ALL=(ALL) NOPASSWD:ALL']
+          ssh-authorized-keys:
+            - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDctSW2GYOQjydMGauEYV6Vb9USxdZRT3XIJBMJACN+e3cNREB1vNX1eKBv0+PGzf9ttTe5/DSLA9M7PZThn1UFJP7NNNNYMdPBySHHK+kJKymPPBGiNOnoiqAO6u1ECuisj1Qg9dDm5RNhE9FPMDYANNzVdvPUCAuH0g/vKiLWX1MxKKDRR6gxkDuGMv3YgRxqhjH9b7cUof3Pas2w85DLGQr4/w+4iw1y8q02LUIRrekhmKnU5dEE6Yita/PBggo6rKw2d5LQdqLzrFnREN/pi7KrkLAr9mSp3PBSNmItC++0nnqU7JFJahJT08PIGwqBJpd6xz57IfjJ9JfhQK2326hoDcWAYsPqTPISN+ePRhH74EH5kTlbijRcBo5qScfkNrVMxFD+6YVBBmEpMQkUK6CUKXBCepY3rUqUScD7zY/dvNwdt+Uben6Pwn0zMqMdubrl2FEv4ikILlSdQIw9CfOq2ztVT+2PD9FZpC1yzBltl3It0N5cQ0XwrEvoC1U= cluster@localhost
+      runcmd:
+        - [ echo "template cloud-config accessed" >> /tmp/deploy.txt ]
+        - [ su echo "10.100.28.102  rancher.devit.eau.jamf.net knode1-dev-rancher.devit.eau.jamf.net" >> /etc/hosts ]
+      packages:
+        - docker
+        - cowsay
+      datasource:
+        NoCloud:
+          # default seedfrom is None
+          # if found, then it should contain a url with:
+          #    <url>user-data and <url>meta-data
+          seedfrom: https://files.jamf.net/server/cloud-init/k8s/eau/
 
   # vSphere cloud-init filepath or url to add to guestinfo, filepath will be read and base64 encoded before adding
   # cloudinit: ""
@@ -83,16 +101,16 @@ nodepools:
   cpuCount: "2"
 
   # 'Creation type when creating a new virtual machine. Supported values: vm, template, library, legacy'
-  creationType: "vm"
+  creationType: "template"
 
   # vSphere custom attribute, format key/value e.g. '200=mycustom value'
   # customAttribute: ["200=mycustom value"]
 
   # vSphere datacenter for virtual machine
-  # datacenter: ""
+  datacenter: "EAU"
 
   # vSphere datastore for virtual machine
-  # datastore: ""
+  datastore: "eau-pure01_vvol_general"
 
   # vSphere datastore cluster for virtual machine
   # datastoreCluster: ""
@@ -101,19 +119,19 @@ nodepools:
   diskSize: "20480"
 
   # vSphere folder for the docker VM. This folder must already exist in the datacenter
-  # folder: ""
+  folder: "IT/Container Hosts"
 
   # vSphere compute resource where the docker VM will be instantiated. This can be omitted if using a cluster with DRS
   # hostsystem: ""
 
   # vSphere size of memory for docker VM (in MB)
-  # memorySize: "2048"
+  memorySize: "2048"
 
   # vSphere network where the virtual machine will be attached
-  # network: ""
+  network: "eau-ucs01-it_servers_dev"
 
   # vSphere resource pool for docker VM
-  # pool: ""
+  pool: "host/eau-infrastructure-usc01/Resources"
 
   # If using a non-B2D image you can specify the ssh port
   sshPort: "22"
@@ -122,7 +140,7 @@ nodepools:
   sshUserGroup: staff
 
   # vSphere tag id e.g. urn:xxx
-  # tag: ["urn:xxx"]
+  tag: ["k8s-zone:zone-a", "pod_storage:eau", "k8s-region:region-us1"]
 
   # 'vSphere vApp IP allocation policy. Supported values are: dhcp, fixed, transient and fixedAllocated'
   # vappIpallocationpolicy: ""
@@ -137,7 +155,7 @@ nodepools:
   # vappTransport: ""
 
   # vSphere IP/hostname for vCenter
-  # vcenter: ""
+  vcenter: "vcenter.jamf.net"
 
   # vSphere Port for vCenter
   vcenterPort: 443
