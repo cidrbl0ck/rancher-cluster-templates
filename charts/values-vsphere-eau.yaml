@@ -1,4 +1,4 @@
-cloudprovider: vsphere
+cloudprovider: vsphere-eau
 
 cloudCredentialSecretName: svc-rancher
 
