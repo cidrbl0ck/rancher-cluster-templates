@@ -38,7 +38,7 @@ jobs:
           CR_TOKEN: "${{ secrets.GIT_TOKEN }}"
 
       - name: run chart-releaser
-        uses: helm/chart-releaser-action@v1.6.1
+        uses: helm/chart-releaser-action@v1.6.0
         env:
           CR_TOKEN: "${{ secrets.GIT_TOKEN }}"
 
