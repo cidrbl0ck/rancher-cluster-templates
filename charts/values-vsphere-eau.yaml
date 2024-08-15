@@ -79,8 +79,8 @@ nodepools:
           ssh-authorized-keys:
             - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDctSW2GYOQjydMGauEYV6Vb9USxdZRT3XIJBMJACN+e3cNREB1vNX1eKBv0+PGzf9ttTe5/DSLA9M7PZThn1UFJP7NNNNYMdPBySHHK+kJKymPPBGiNOnoiqAO6u1ECuisj1Qg9dDm5RNhE9FPMDYANNzVdvPUCAuH0g/vKiLWX1MxKKDRR6gxkDuGMv3YgRxqhjH9b7cUof3Pas2w85DLGQr4/w+4iw1y8q02LUIRrekhmKnU5dEE6Yita/PBggo6rKw2d5LQdqLzrFnREN/pi7KrkLAr9mSp3PBSNmItC++0nnqU7JFJahJT08PIGwqBJpd6xz57IfjJ9JfhQK2326hoDcWAYsPqTPISN+ePRhH74EH5kTlbijRcBo5qScfkNrVMxFD+6YVBBmEpMQkUK6CUKXBCepY3rUqUScD7zY/dvNwdt+Uben6Pwn0zMqMdubrl2FEv4ikILlSdQIw9CfOq2ztVT+2PD9FZpC1yzBltl3It0N5cQ0XwrEvoC1U= cluster@localhost
       runcmd:
-        - [ echo "template cloud-config accessed" >> /tmp/deploy.txt ]
-        - [ su echo "10.100.28.102  rancher.devit.eau.jamf.net knode1-dev-rancher.devit.eau.jamf.net" >> /etc/hosts ]
+        - [ touch /tmp/deploy.txt && echo "template cloud-config accessed" >> /tmp/deploy.txt ]
+        - [ sudo echo "10.100.28.102  rancher.devit.eau.jamf.net knode1-dev-rancher.devit.eau.jamf.net" >> /etc/hosts ]
       packages:
         - docker
         - cowsay
