@@ -1,7 +1,7 @@
 # cluster specific values
 cluster:
   # specify cluster name
-  name: template-rke2
+  name: eau-test
 
   # specify cluster labels
   labels: {}
@@ -10,12 +10,12 @@ cluster:
   annotations: {}
 
 # specify cloud credential secret name, do not need to be provided if using custom driver
-cloudCredentialSecretName: ""
+cloudCredentialSecretName: "svc-rancher"
 
 # specify cloud provider, options are amazonec2, digitalocean, azure, vsphere or custom
-cloudprovider: "digitalocean"
+cloudprovider: "vsphere-eau"
 
-kubernetesVersion: ""
+kubernetesVersion: "1.30.2+rke2r1"
 
 # general RKE options
 rke:
