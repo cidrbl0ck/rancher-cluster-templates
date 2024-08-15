@@ -35,12 +35,12 @@ jobs:
       - name: Install helm
         uses: azure/setup-helm@v1
         env:
-          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          CR_TOKEN: "${{ secrets.GIT_TOKEN }}"
 
       - name: run chart-releaser
         uses: helm/chart-releaser-action@v1.6.1
         env:
-          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          CR_TOKEN: "${{ secrets.GIT_TOKEN }}"
 
       - uses: actions/checkout@v4
         with:
