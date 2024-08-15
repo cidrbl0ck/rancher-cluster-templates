@@ -11,6 +11,6 @@ entries:
     name: cluster-template
     urls:
     - cluster-template-0.0.1.tgz
-    - eau-k3s.tgz
+    - eau-rkev2.tgz
     version: 0.0.1
 generated: "2022-02-25T15:54:51.600996-08:00"
