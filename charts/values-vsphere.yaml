@@ -1,4 +1,6 @@
-cloudprovider: vsphere-eau
+cluster:
+  name: eau-vs-dev
+cloudprovider: vsphere
 
 cloudCredentialSecretName: svc-rancher
 
