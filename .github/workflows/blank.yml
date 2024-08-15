@@ -34,13 +34,13 @@ jobs:
 
       - name: Install helm
         uses: azure/setup-helm@v4.1.0
-        env:
-          CR_TOKEN: "${{ secrets.GIT_TOKEN }}"
+        with:
+          version: v3.5.4
 
       - name: run chart-releaser
         uses: helm/chart-releaser-action@v1.6.0
         env:
-          CR_TOKEN: "${{ secrets.GIT_TOKEN }}"
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
       - uses: actions/checkout@v4
         with:
