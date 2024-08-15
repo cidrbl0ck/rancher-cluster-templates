@@ -53,7 +53,7 @@ jobs:
 
       - name: generate html
         run: |
-          go install github.com//halkeye/helm-repo-html@v0.2.1
+          go install github.com//halkeye/helm-repo-html@v0.0.8
           /home/runner/go/bin/helm-repo-html
 
       - uses: stefanzweifel/git-auto-commit-action@v4
