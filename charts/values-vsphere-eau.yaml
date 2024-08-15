@@ -70,7 +70,7 @@ nodepools:
 
   # Contents of cloud-config yaml file to put into the ISO user-data; Format should be:
   # cloudConfig: |
-      #cloud-config
+     \#cloud-config
       users:
         - name: node_admin
           shell: /bin/bash
